@@ -13,9 +13,11 @@ using namespace std;
 Displayer& Displayer::displayer = Displayer::initDisplayer();
 GLFWwindow* Displayer::window = nullptr;
 
-Displayer::Displayer()
+Displayer::Displayer() : title("Hello World"), windowWidth(1024), windowHeight(768)
 {
     ;
+//    glad_glGenVertexArrays(1, &VertexArrayID);
+//    glad_glBindVertexArray(VertexArrayID);
 }
 
 Displayer& Displayer::initDisplayer()
@@ -39,7 +41,7 @@ void Displayer::mainloop()
     if (!glfwInit())
         throw string("displayer init error");
     
-    Displayer::window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    Displayer::window = glfwCreateWindow(windowWidth, windowHeight, title.c_str(), NULL, NULL);
     
     if (!Displayer::window)
     {
@@ -58,9 +60,8 @@ void Displayer::mainloop()
     while (!glfwWindowShouldClose(Displayer::window))
     {
         //render
-        glClear(GL_COLOR_BUFFER_BIT);
+        glad_glClear(GL_COLOR_BUFFER_BIT);
 		//
-        
         glfwSwapBuffers(Displayer::window);
         
         glfwPollEvents();
