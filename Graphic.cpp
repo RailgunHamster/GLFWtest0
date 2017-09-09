@@ -12,9 +12,9 @@ using namespace std;
 
 //for test
 GLfloat testBuffer[] = {
-    -1, -1, 0,
-    1, -1, 0,
-    0, 1, 0,
+    -0.5, -0.5, 0,
+    0.5, -0.5, 0,
+    0, 0.5, 0,
 };
 
 Graphic::Graphic() : number(9)
@@ -28,4 +28,14 @@ GLfloat& Graphic::operator[](int index)
     if (!(index >= 0 && index < number))
         throw string("out of range");
     return vertexBuffer[index];
+}
+
+int Graphic::size()
+{
+    return number * sizeof(GLfloat);
+}
+
+GLfloat* Graphic::pointer()
+{
+    return vertexBuffer;
 }

@@ -24,6 +24,7 @@ public:
     Manager();
 	void mainloop();
 	void render();
+    void bufferData();
 };
 
 #endif /* Manager_hpp */

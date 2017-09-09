@@ -19,7 +19,9 @@ private:
     static Displayer& initDisplayer();
     Displayer();
 	//data
-//    GLuint VertexArrayID;
+    GLuint VBO;
+    GLuint vertexShader;
+    static GLchar *vertexShaderSource;
 public:
     static Displayer& displayer;
     void mainloop();

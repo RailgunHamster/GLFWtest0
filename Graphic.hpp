@@ -19,6 +19,8 @@ private:
 public:
     Graphic();
     GLfloat& operator[](int index);
+    int size();
+    GLfloat* pointer();
 };
 
 #endif /* Graphic_hpp */

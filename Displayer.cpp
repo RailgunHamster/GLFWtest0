@@ -12,29 +12,31 @@
 using namespace std;
 
 Displayer& Displayer::displayer = Displayer::initDisplayer();
+GLchar* Displayer::vertexShaderSource = new GLchar[200];
 
 Displayer::Displayer() : window(nullptr), title("Hello World"), windowWidth(800), windowHeight(600)
 {
-//    glad_glGenVertexArrays(1, &VertexArrayID);
-//    glad_glBindVertexArray(VertexArrayID);
+    ;
 }
 
 Displayer& Displayer::initDisplayer()
 {
+    vertexShaderSource = "#version 410 core\nlayout (location = 0) in vec3 position;\nvoid main()\n{\ngl_Position = vec4(position.x, position.y, position.z, 1.0);\n}";
+    
     Displayer& d = *(new Displayer());
     
     if (!glfwInit())
         throw string("displayer init error");
     
-//    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-//    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-//    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 #ifdef _OS_X_
-//    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
     
-    d.window = glfwCreateWindow(d.windowWidth, d.windowHeight, d.title.c_str(), NULL, NULL);
+    d.window = glfwCreateWindow(d.windowWidth, d.windowHeight, d.title.c_str(), nullptr, nullptr);
     
     if (!d.window)
     {
@@ -48,7 +50,30 @@ Displayer& Displayer::initDisplayer()
     
     glfwMakeContextCurrent(d.window);
     
+//    cout << glad_glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+    
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    
+    glad_glGenBuffers(1, &d.VBO);
+    glad_glBindBuffer(GL_ARRAY_BUFFER, d.VBO);
+    
+    Manager::manager.bufferData();
+    
+    d.vertexShader = glad_glCreateShader(GL_VERTEX_SHADER);
+    glad_glShaderSource(d.vertexShader, 1, &vertexShaderSource, nullptr);
+    glad_glCompileShader(d.vertexShader);
+    
+    GLint success;
+    GLchar infoLog[512];
+    glad_glGetShaderiv(d.vertexShader, GL_COMPILE_STATUS, &success);
+    
+    cout << glad_glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+    
+    if (!success)
+    {
+        glad_glGetShaderInfoLog(d.vertexShader, 512, nullptr, infoLog);
+        throw string("shader compile error\n") + infoLog;
+    }
     
     return d;
 }

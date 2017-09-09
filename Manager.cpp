@@ -16,7 +16,6 @@ Manager& Manager::manager = Manager::initManager();
 Manager::Manager()
 {
 	graphics.push_back(new Graphic());
-	cout << (*(graphics.front()))[0] << endl;
 }
 
 Manager& Manager::initManager()
@@ -28,6 +27,11 @@ void Manager::render()
 {
     glad_glClearColor(0.2, 0.3, 0.3, 1.0);
 	glad_glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void Manager::bufferData()
+{
+    glad_glBufferData(GL_ARRAY_BUFFER, graphics.front()->size(), graphics.front()->pointer(), GL_STATIC_DRAW);
 }
 
 void Manager::mainloop()
