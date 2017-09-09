@@ -25,8 +25,13 @@ Manager& Manager::initManager()
 
 void Manager::render()
 {
-    glad_glClearColor(0.2, 0.3, 0.3, 1.0);
-	glad_glClear(GL_COLOR_BUFFER_BIT);
+    glad_glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glad_glClear(GL_COLOR_BUFFER_BIT);
+    //
+    glad_glUseProgram(Displayer::displayer.shaderProgram);
+    glad_glBindVertexArray(Displayer::displayer.VAO);
+    glad_glDrawArrays(GL_TRIANGLES, 0, 3);
+    glad_glBindVertexArray(8);
 }
 
 void Manager::bufferData()

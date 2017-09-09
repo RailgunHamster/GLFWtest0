@@ -18,10 +18,16 @@ private:
     //func
     static Displayer& initDisplayer();
     Displayer();
+    //friend
+    friend class Manager;
 	//data
     GLuint VBO;
+    GLuint VAO;
     GLuint vertexShader;
+    GLuint fragmentShader;
+    GLuint shaderProgram;
     static GLchar *vertexShaderSource;
+    static GLchar *fragmentShaderSource;
 public:
     static Displayer& displayer;
     void mainloop();
