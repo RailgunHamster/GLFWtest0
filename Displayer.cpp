@@ -12,9 +12,8 @@
 using namespace std;
 
 Displayer& Displayer::displayer = Displayer::initDisplayer();
-GLFWwindow* Displayer::window = nullptr;
 
-Displayer::Displayer() : title("Hello World"), windowWidth(1024), windowHeight(768)
+Displayer::Displayer() : window(nullptr), title("Hello World"), windowWidth(1024), windowHeight(768)
 {
     ;
 //    glad_glGenVertexArrays(1, &VertexArrayID);
@@ -23,30 +22,32 @@ Displayer::Displayer() : title("Hello World"), windowWidth(1024), windowHeight(7
 
 Displayer& Displayer::initDisplayer()
 {
-    return *(new Displayer());
-}
-
-void Displayer::mainloop()
-{
+    Displayer& d = *(new Displayer());
+    
     if (!glfwInit())
         throw string("displayer init error");
     
-    Displayer::window = glfwCreateWindow(windowWidth, windowHeight, title.c_str(), NULL, NULL);
+    d.window = glfwCreateWindow(d.windowWidth, d.windowHeight, d.title.c_str(), NULL, NULL);
     
-    if (!Displayer::window)
+    if (!d.window)
     {
         glfwTerminate();
         throw string("displayer window create error");
     }
+    
+    glfwSetErrorCallback(Manager::errorCallback);
+    
+    glfwSetKeyCallback(d.window, Manager::keyCallback);
+    
+    glfwMakeContextCurrent(d.window);
+    
+    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    
+    return d;
+}
 
-	glfwSetErrorCallback(Manager::errorCallback);
-
-	glfwSetKeyCallback(Displayer::window, Manager::keyCallback);
-    
-    glfwMakeContextCurrent(Displayer::window);
-    
-	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    
+void Displayer::mainloop()
+{
     while (!glfwWindowShouldClose(Displayer::window))
     {
 		Manager::manager.render();
