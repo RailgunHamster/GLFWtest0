@@ -8,7 +8,6 @@
 
 #include "Graphic.hpp"
 #include <string>
-#include <memory>
 using namespace std;
 
 //for test
@@ -21,7 +20,8 @@ GLfloat testBuffer[] = {
 Graphic::Graphic() : number(9)
 {
     vertexBuffer = new GLfloat[number];
-    memcpy(&vertexBuffer, testBuffer, sizeof(testBuffer));
+	for (int i = 0; i < number; i++)
+		vertexBuffer[i] = testBuffer[i];
 }
 
 GLfloat& Graphic::operator[](int index)

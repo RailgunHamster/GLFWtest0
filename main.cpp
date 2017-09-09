@@ -5,7 +5,7 @@
 //  Created by 王宇鑫 on 2017/9/7.
 //  Copyright © 2017年 王宇鑫. All rights reserved.
 //
-#include "Displayer.hpp"
+#include "Manager.hpp"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -14,11 +14,11 @@ int main()
 {
     try
     {
-        Displayer::displayer.mainloop();
+		Manager::manager.mainloop();
     }
-    catch (string errorInfo)
+    catch (string error)
     {
-        cerr << errorInfo << endl;
+        cerr << error << endl;
     }
     return 0;
 }

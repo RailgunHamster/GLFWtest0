@@ -6,6 +6,7 @@
 //  Copyright © 2017年 王宇鑫. All rights reserved.
 //
 #include "Displayer.hpp"
+#include "Manager.hpp"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -25,17 +26,6 @@ Displayer& Displayer::initDisplayer()
     return *(new Displayer());
 }
 
-void Displayer::errorCallback(int error, const char* description)
-{
-    cerr << "error NO." << error << " : " << description << endl;
-}
-
-void Displayer::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
-}
-
 void Displayer::mainloop()
 {
     if (!glfwInit())
@@ -49,9 +39,9 @@ void Displayer::mainloop()
         throw string("displayer window create error");
     }
 
-	glfwSetErrorCallback(Displayer::errorCallback);
+	glfwSetErrorCallback(Manager::errorCallback);
 
-	glfwSetKeyCallback(Displayer::window, Displayer::keyCallback);
+	glfwSetKeyCallback(Displayer::window, Manager::keyCallback);
     
     glfwMakeContextCurrent(Displayer::window);
     
@@ -59,9 +49,8 @@ void Displayer::mainloop()
     
     while (!glfwWindowShouldClose(Displayer::window))
     {
-        //render
-        glad_glClear(GL_COLOR_BUFFER_BIT);
-		//
+		Manager::manager.render();
+
         glfwSwapBuffers(Displayer::window);
         
         glfwPollEvents();
