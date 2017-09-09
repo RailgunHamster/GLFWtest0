@@ -20,8 +20,7 @@ GLfloat testBuffer[] = {
 Graphic::Graphic() : number(9)
 {
     vertexBuffer = new GLfloat[number];
-	for (int i = 0; i < number; i++)
-		vertexBuffer[i] = testBuffer[i];
+	memcpy(vertexBuffer, testBuffer, sizeof(GLfloat) * number);
 }
 
 GLfloat& Graphic::operator[](int index)
