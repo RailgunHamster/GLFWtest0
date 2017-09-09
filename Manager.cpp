@@ -26,19 +26,13 @@ Manager& Manager::initManager()
 
 void Manager::render()
 {
+    glad_glClearColor(0.2, 0.3, 0.3, 1.0);
 	glad_glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Manager::mainloop()
 {
-	try
-	{
-		Displayer::displayer.mainloop();
-	}
-	catch (string error)
-	{
-		throw error;
-	}
+    Displayer::displayer.mainloop();
 }
 
 void Manager::errorCallback(int error, const char* description)

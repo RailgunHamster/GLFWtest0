@@ -17,7 +17,6 @@ class Displayer
 private:
     //func
     static Displayer& initDisplayer();
-    GLFWwindow* window;
     Displayer();
 	//data
 //    GLuint VertexArrayID;
@@ -25,6 +24,7 @@ public:
     static Displayer& displayer;
     void mainloop();
     //data
+    GLFWwindow* window;
     GLint windowWidth;
     GLint windowHeight;
     string title;

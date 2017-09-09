@@ -12,13 +12,6 @@ using namespace std;
 
 int main()
 {
-    try
-    {
-		Manager::manager.mainloop();
-    }
-    catch (string error)
-    {
-        cerr << error << endl;
-    }
+    Manager::manager.mainloop();
     return 0;
 }
