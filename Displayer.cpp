@@ -23,9 +23,19 @@ Displayer::Displayer() : window(nullptr), title("Hello World"), windowWidth(800)
 Displayer& Displayer::initDisplayer()
 {
     //source
-    vertexShaderSource = "#version 410 core\nlayout (location = 0) in vec3 position;\nvoid main()\n{\ngl_Position = vec4(position.x, position.y, position.z, 1.0);\n}";
+    vertexShaderSource = "#version 410 core\n\
+        layout (location = 0) in vec3 position;\n\
+        void main()\n\
+        {\n\
+            gl_Position = vec4(position.x, position.y, position.z, 1.0);\n\
+        }";
     
-    fragmentShaderSource = "#version 410 core\nout vec4 color;\nvoid main()\n{\ncolor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n}";
+    fragmentShaderSource = "#version 410 core\n\
+        out vec4 color;\n\
+        void main()\n\
+        {\n\
+            color = vec4(1.0, 0.5, 0.2, 1.0);\n\
+        }";
     
     //
     Displayer& d = *(new Displayer());
