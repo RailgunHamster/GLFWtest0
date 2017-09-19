@@ -76,22 +76,22 @@ Displayer& Displayer::initDisplayer()
     glad_glShaderSource(d.fragmentShader, 1, &fragmentShaderSource, nullptr);
     glad_glCompileShader(d.fragmentShader);
     
-    GLint success;
-    GLchar infoLog[512];
-    glad_glGetShaderiv(d.vertexShader, GL_COMPILE_STATUS, &success);
+/*    glad_glGetShaderiv(d.vertexShader, GL_COMPILE_STATUS, &success);
     
     if (!success)
     {
         glad_glGetShaderInfoLog(d.vertexShader, 512, nullptr, infoLog);
         throw string("shader compile error\n") + infoLog;
-    }
+    }*/
     
     d.shaderProgram = glad_glCreateProgram();
     
     glad_glAttachShader(d.shaderProgram, d.vertexShader);
     glad_glAttachShader(d.shaderProgram, d.fragmentShader);
     glad_glLinkProgram(d.shaderProgram);
-    
+
+    GLint success;
+    GLchar infoLog[512];
     glad_glGetProgramiv(d.shaderProgram, GL_LINK_STATUS, &success);
     if(!success)
     {
@@ -99,16 +99,17 @@ Displayer& Displayer::initDisplayer()
         throw string("program link error\n") + infoLog;
     }
     
-    
     glad_glDeleteShader(d.vertexShader);
     glad_glDeleteShader(d.fragmentShader);
     //
     glad_glGenVertexArrays(1, &d.VAO);
     glad_glGenBuffers(1, &d.VBO);
+    glad_glGenBuffers(1, &d.EBO);
     
     glad_glBindVertexArray(d.VAO);
     
     glad_glBindBuffer(GL_ARRAY_BUFFER, d.VBO);
+    glad_glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, d.EBO);
     
     Manager::manager.bufferData();
     

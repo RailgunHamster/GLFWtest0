@@ -15,12 +15,15 @@ class Graphic
 {
 private:
     GLfloat* vertexBuffer;
+    GLuint* indices;
     int number;
 public:
     Graphic();
     GLfloat& operator[](int index);
     int size();
     GLfloat* pointer();
+    int indicesSize();
+    GLuint* getIndices();
 };
 
 #endif /* Graphic_hpp */

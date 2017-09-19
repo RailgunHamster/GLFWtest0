@@ -23,6 +23,7 @@ private:
 	//data
     GLuint VBO;
     GLuint VAO;
+    GLuint EBO;
     GLuint vertexShader;
     GLuint fragmentShader;
     GLuint shaderProgram;
