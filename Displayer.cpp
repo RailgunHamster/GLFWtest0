@@ -25,18 +25,22 @@ Displayer& Displayer::initDisplayer()
     //source
     vertexShaderSource = "#version 410 core\n\
         layout (location = 0) in vec3 position;\n\
+        layout (location = 1) in vec3 color;\n\
+        out vec3 ourColor;\n\
         void main()\n\
         {\n\
-            gl_Position = vec4(position.x, position.y, position.z, 1.0);\n\
+            gl_Position = vec4(position, 1.0);\n\
+            ourColor = color;\n\
         }";
     
     fragmentShaderSource = "#version 410 core\n\
+        in vec3 ourColor;\n\
         out vec4 color;\n\
         void main()\n\
         {\n\
-            color = vec4(1.0, 0.5, 0.2, 1.0);\n\
+            color = vec4(ourColor, 1.0);\n\
         }";
-    
+    //vec4(1.0, 0.5, 0.2, 1.0);
     //
     Displayer& d = *(new Displayer());
     
@@ -113,10 +117,19 @@ Displayer& Displayer::initDisplayer()
     
     Manager::manager.bufferData();
     
-    glad_glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0);
+    glad_glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (GLvoid*)0);
     glad_glEnableVertexAttribArray(0);
+    glad_glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (GLvoid*)(3 * sizeof(GL_FLOAT)));
+    glad_glEnableVertexAttribArray(1);
     
     glad_glBindVertexArray(0);
+    
+    //test
+    /*
+    GLint nrAttributes;
+    glad_glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+    cout << "Maximum nr of vertex attributes supported: " << nrAttributes << endl;
+     */
     
     return d;
 }

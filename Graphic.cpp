@@ -17,10 +17,10 @@ GLfloat testBuffer[] = {
     0.5, -0.5, 0,
     0, 0.5, 0,
      */
-    0.5f, 0.5f, 0.0f,   // 右上角
-    0.5f, -0.5f, 0.0f,  // 右下角
-    -0.5f, -0.5f, 0.0f, // 左下角
-    -0.5f, 0.5f, 0.0f   // 左上角
+    0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+    0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+    -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+    -0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f
 };
 
 GLuint testIndices[] = {
@@ -28,7 +28,7 @@ GLuint testIndices[] = {
     1, 2, 3
 };
 
-Graphic::Graphic() : number(12)
+Graphic::Graphic() : number(sizeof(testBuffer))
 {
     vertexBuffer = new GLfloat[number];
     indices = new GLuint[sizeof(testIndices)];

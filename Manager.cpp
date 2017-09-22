@@ -9,6 +9,7 @@
 #include "Manager.hpp"
 #include "Displayer.hpp"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 Manager& Manager::manager = Manager::initManager();
@@ -25,10 +26,20 @@ Manager& Manager::initManager()
 
 void Manager::render()
 {
+    //clear
     glad_glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glad_glClear(GL_COLOR_BUFFER_BIT);
-    //
+    //use
     glad_glUseProgram(Displayer::displayer.shaderProgram);
+    //color
+/*  GLfloat timeValue = glfwGetTime();
+    GLfloat greenValue = (sin(timeValue) / 2) + 0.5;
+    GLfloat redValue = 1 / greenValue;
+    GLfloat blueValue = 0.5;
+    GLint vertexColorLocation = glad_glGetUniformLocation(Displayer::displayer.shaderProgram, "ourColor");
+    glad_glUniform4f(vertexColorLocation, redValue, greenValue, blueValue, 1.0f);
+*/
+    //draw
     glad_glBindVertexArray(Displayer::displayer.VAO);
 //    glad_glDrawArrays(GL_TRIANGLES, 0, 3);
     glad_glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
