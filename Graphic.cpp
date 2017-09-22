@@ -33,7 +33,7 @@ Graphic::Graphic() : number(sizeof(testBuffer))
     vertexBuffer = new GLfloat[number];
     indices = new GLuint[sizeof(testIndices)];
 	memcpy(vertexBuffer, testBuffer, sizeof(GLfloat) * number);
-    memcpy(indices, testIndices, sizeof(GLuint) * sizeof(indices));
+    memcpy(indices, testIndices, sizeof(GLuint) * sizeof(testIndices));
 }
 
 GLfloat& Graphic::operator[](int index)
