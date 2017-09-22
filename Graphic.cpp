@@ -28,12 +28,12 @@ GLuint testIndices[] = {
     1, 2, 3
 };
 
-Graphic::Graphic() : number(sizeof(testBuffer))
+Graphic::Graphic() : number(sizeof(testBuffer) / sizeof(GLfloat))
 {
     vertexBuffer = new GLfloat[number];
-    indices = new GLuint[sizeof(testIndices)];
+    indices = new GLuint[sizeof(testIndices) / sizeof(GLuint)];
 	memcpy(vertexBuffer, testBuffer, sizeof(GLfloat) * number);
-    memcpy(indices, testIndices, sizeof(GLuint) * sizeof(testIndices));
+    memcpy(indices, testIndices, sizeof(testIndices));
 }
 
 GLfloat& Graphic::operator[](int index)
@@ -55,7 +55,7 @@ GLfloat* Graphic::pointer()
 
 int Graphic::indicesSize()
 {
-    return sizeof(testIndices) * sizeof(GLuint);
+    return sizeof(testIndices);
 }
 
 GLuint* Graphic::getIndices()
